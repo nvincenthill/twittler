@@ -1,0 +1,28 @@
+body {
+  font-family: 'Cantarell', sans-serif;
+  background: #eee;
+}
+
+div {
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  padding: 2rem;
+  font-size: 1.5em;
+}
+
+.tweet {
+  background: white;
+  box-shadow: 0rem .5rem 1rem black;
+}
+
+h1 {
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 3em;
+  text-align: center;
+}
+
+h2 {
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 2em;
+  text-align: center;
+}

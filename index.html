@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Twittler</title>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Cantarell|Fjalla+One" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
   </head>
   <body>
+    <h1>Twittler</h1>
+    <div id="tweets"></div>
+    <h2>Created by Nicholas Vincent-Hill in 2018</h2>
     <script>
-
       $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
+        var $body = $('#tweets');
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
+        for (let i = 0; i < streams.home.length; i++) {
+          var tweet = streams.home[i];
+          var $tweet = $('<div class="tweet"></div>');
           $tweet.text('@' + tweet.user + ': ' + tweet.message);
           $tweet.appendTo($body);
-          index -= 1;
         }
-
       });
-
     </script>
   </body>
 </html>
