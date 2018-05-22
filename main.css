@@ -5,24 +5,180 @@ body {
 
 div {
   margin-bottom: 2rem;
-  margin-top: 1rem;
-  padding: 2rem;
-  font-size: 1.5em;
+  margin-top: 0rem;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  padding: 1rem;
+  font-size: 1em;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: [first-col] 1fr [second-col] 1fr [third-col] 1fr [end];
+  grid-template-rows: [first-rw] 1fr [end];
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  margin-bottom: 1em;
 }
 
 .tweet {
+  display: grid;
+  grid-template-columns: [first-col] 1fr [second-col] 1fr [third-col] 1fr [end];
+  grid-template-rows: [first-rw] 1fr [end];
+
   background: white;
-  box-shadow: 0rem .5rem 1rem black;
+  box-shadow: 0rem .25rem .5rem black;
+  align-items: center;
+  justify-content: center;
 }
 
-h1 {
-  font-family: 'Fjalla One', sans-serif;
-  font-size: 3em;
+.tweet-message {
   text-align: center;
+  font-size: 1em;
+
+  grid-column-start: first-col;
+  grid-column-end: third-col;
+  grid-row-start: second-rw;
+  grid-row-end: end;
+}
+
+.timestamp {
+  text-align: right;
+
+  grid-column-start: third-col;
+  grid-column-end: end;
+  grid-row-start: second-rw;
+  grid-row-end: end;
+  text-align: right;
+}
+
+.button-container {
+  margin-bottom: 1em;
+  margin-top: 1em;
+  padding: 0;
+
+  grid-column-start: third-col;
+  grid-column-end: end;
+  grid-row-start: first-rw;
+  grid-row-end: end;
+  text-align: right;
+}
+
+.title {
+  display: absolute;
+  top: 5vh;
+  text-align: center;
+
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 5em;
+  margin-bottom: 0rem;
+  margin-top: 1rem;
+  text-align: center;
+  color: #7F7F7F;
+  text-shadow: 0rem .5rem 1rem white;
+}
+
+.user {
+  font-size: 2em;
+  cursor: pointer;
+}
+
+#toggleWatching {
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1em;
+  padding: 1.5em;
+  font-family: 'Cantarell', sans-serif;
+  background: #ffaaa5;
+  border-width: 0;
+  cursor: pointer;
+  box-shadow: 0rem .25rem .5rem black;
+}
+
+.profileButton {
+  margin-left: 4vw;
+  font-size: 1em;
+  padding: 1.5em;
+  font-family: 'Cantarell', sans-serif;
+  border-width: 0;
+  cursor: pointer;
+  font-weight: bold;
+
+  grid-column-start: third-col;
+  grid-column-end: end;
+  grid-row-start: first-rw;
+  grid-row-end: end;
+  text-align: right;
+}
+
+
+#toggleWatching:focus {
+  outline: none;
+}
+
+
+h1 {
+
 }
 
 h2 {
   font-family: 'Fjalla One', sans-serif;
-  font-size: 2em;
+  font-size: 1em;
+  text-align: center;
+  color: #7F7F7F;
+  text-shadow: 0rem .5rem 1rem white;
+}
+
+h3 {
+  font-family: 'Fjalla One', sans-serif;
+  font-size: 1em;
+  margin-top: 0rem;
+}
+
+.color0 {
+  background: #08c299;
+}
+
+.color1 {
+  background: #ffb6b9;
+}
+
+.color2 {
+  background: #fae3d9;
+}
+
+.color3 {
+  background: #bbded6;
+}
+
+.color4 {
+  background: #61c0bf;
+}
+
+.color5 {
+  background: #a8e6cf;
+}
+
+.color6 {
+  background: #fdffab;
+}
+
+.color7 {
+  background: #ffd3b6;
+}
+
+.color8 {
+  background: #ffaaa5;
+}
+
+.logo {
+  max-height: 30vh;
+  grid-column-start: first-col;
+  grid-column-end: second-col;
+  grid-row-start: first-rw;
+  grid-row-end: end;
   text-align: center;
 }

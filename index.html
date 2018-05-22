@@ -6,22 +6,156 @@
     <script src="data_generator.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Cantarell|Fjalla+One" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="animate.css">
   </head>
   <body>
-    <h1>Twittler</h1>
-    <div id="tweets"></div>
+    <h1 class="title">Twittler</h1>
+    <div class="header">
+      <img class="logo" src="twit.png"></img>
+      <div class="tweet-form">
+        Name <input type="text" id="tweet-name"><br>
+        Message <input type="text" id="tweet-message"><br>
+        <button id="submitTweet">Twit it!</button>
+      </div>
+      <div class="button-container">
+        <button id="toggleWatching">
+          PAUSE
+        </button>
+      </div>
+    </div>
+   
+    <div id="tweets">
+    </div>
     <h2>Created by Nicholas Vincent-Hill in 2018</h2>
     <script>
       $(document).ready(function(){
-        var $body = $('#tweets');
+        
+        let $body = $('#tweets');
 
-        for (let i = 0; i < streams.home.length; i++) {
-          var tweet = streams.home[i];
-          var $tweet = $('<div class="tweet"></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
+        for (let j = 0; j < streams.home.length; j++) {
+          displayTweet(j, streams.home);
         }
+
+        let watchingForNewTweets = true;
+
+        $('#toggleWatching').click(function() {
+            watchingForNewTweets = !watchingForNewTweets;
+              if (watchingForNewTweets) {
+                watchArray(streams.home, updateTweets);
+                $('#toggleWatching').html('PAUSE');
+                $('#toggleWatching').css('background', '#ffaaa5');
+              }
+            });
+
+        $('#submitTweet').click(function() {
+          let userNameForTweet = $('#tweet-name').val();
+          let message = $('#tweet-message').val();
+          console.log(userNameForTweet, message);
+          writeTweet(message, userNameForTweet);
+          });
+
+        function displayTweet(index, arrayOfTweets) {
+            let tweet = arrayOfTweets[index];
+            let userName = tweet.user.split("_").join(" ");
+            let randomColor = Math.floor(Math.random() * (9));
+            let $tweet = $(
+              `<div class="tweet animated fadeInLeft color${randomColor}">
+                <h3 class="user" data-user=${tweet.user}>@${tweet.user}</h3>
+                <button class="profileButton color${randomColor}">
+                  Show ${userName}'s Timeline
+                </button>
+                  <p class="tweet-message">${tweet.message}</p>
+                  <p class="timestamp tweet-time-stamp${index}">${tweet.created_at}<br />${timeSince(tweet.created_at)}</p>
+                </div>`
+                );
+            $tweet.prependTo($body);
+
+            $("img").addClass("animated tada");
+            setTimeout(() => removeAnimationClass(), 1000);
+
+            $(".profileButton").click(() => displayTimeline(tweet.user));
+
+            $(".user").click(() => displayTimeline(tweet.user));
+        }
+
+        function removeAnimationClass() {
+          $("img").removeClass("animated tada")
+        }
+
+        function displayTimeline(user) {
+          $('#tweets').html('');
+          let filteredTweets = [];
+          for (let i = 0; i < streams.home.length; i++) {
+            if (streams.home[i].user === user) {
+              filteredTweets.push(streams.home[i])
+            }
+          }
+
+          for (let j = 0; j < filteredTweets.length; j++) {
+            displayTweet(j, filteredTweets);
+          }
+        }
+
+        function updateTweets() {
+          displayTweet(streams.home.length - 1, streams.home);
+          for (let i = 0; i < streams.home.length; i++) {
+            let $timeStamps = $(`.tweet-time-stamp${i}`);
+            // if (streams.home[i]) {
+            //   $timeStamps.text(timeSince(streams.home[i].tweet.created_at));
+            // }
+          }
+        };
+
+        function watchArray(arr, callback) {
+            var oldVal = "" + arr;
+            var watcher = setInterval(function() {
+                var curVal = "" + arr;
+                if (curVal != oldVal) {
+                    callback();
+                    oldVal = curVal;
+                }
+                if (!watchingForNewTweets) {
+                  clearInterval(watcher);
+                  $('#toggleWatching').html('GO!');
+                  $('#toggleWatching').css('background', '#a8e6cf');
+                }
+            }, 100);
+        }
+
+        watchArray(streams.home, updateTweets);
+
+        let start = new Date();
+
+        function timeSince(date) {
+
+          var seconds = Math.floor((new Date() - date) / 1000);
+
+          var interval = Math.floor(seconds / 31536000);
+
+          if (interval > 1) {
+            return interval + " years ago";
+          }
+          interval = Math.floor(seconds / 2592000);
+          if (interval > 1) {
+            return interval + " months ago";
+          }
+          interval = Math.floor(seconds / 86400);
+          if (interval > 1) {
+            return interval + " days ago";
+          }
+          interval = Math.floor(seconds / 3600);
+          if (interval > 1) {
+            return interval + " hours ago";
+          }
+          interval = Math.floor(seconds / 60);
+          if (interval > 1) {
+            return interval + " minutes ago";
+          }
+          return Math.floor(seconds) + " seconds ago";
+        }
+
       });
+
     </script>
   </body>
 </html>

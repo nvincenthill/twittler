@@ -7,10 +7,10 @@
 window.streams = {};
 streams.home = [];
 streams.users = {};
-streams.users.shawndrost = [];
-streams.users.sharksforcheap = [];
-streams.users.mracus = [];
-streams.users.douglascalhoun = [];
+streams.users.Shawn_Drost = [];
+streams.users.Sharks_for_cheap = [];
+streams.users.M_Racus = [];
+streams.users.Douglas_Calhoun = [];
 window.users = Object.keys(streams.users);
 
 // utility function for adding tweets to our data structures
@@ -52,13 +52,17 @@ for(var i = 0; i < 10; i++){
 
 var scheduleNextTweet = function(){
   generateRandomTweet();
-  setTimeout(scheduleNextTweet, Math.random() * 1500);
+
+  // I reduced the rate of tweet generation
+  setTimeout(scheduleNextTweet, Math.random() * 5000);
 };
 scheduleNextTweet();
 
 // utility function for letting students add "write a tweet" functionality
 // (note: not used by the rest of this file.)
-var writeTweet = function(message){
+var writeTweet = function(message, visitor){
+  streams.users[visitor] = [];
+
   if(!visitor){
     throw new Error('set the global visitor property!');
   }
